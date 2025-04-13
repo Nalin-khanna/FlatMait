@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String        @id @default(uuid())
+  role                Role
+  createdAt           DateTime      @default(now())
+  name                String
+  age                 Int
+  gender              Gender
+  minBudget           Int
+  maxBudget           Int
+  preferredGender     Gender
+  isSmoker            Boolean
+  bio                 String?
+  profilePictureUrl   String?
+  socialLevel         Int
+  petsAllowed         Boolean
+  cleanliness         Cleanliness
+  hobbies             String?
+  sleepSchedule       SleepSchedule
+  sentConnections     Connection[]  @relation("SentConnections")
+  receivedConnections Connection[]  @relation("ReceivedConnections")
+  location            Location?     @relation("location")
+  profileCompleted    Boolean
+}
+
+model Connection {
+  id                 String           @id @default(uuid())
+  status             ConnectionStatus
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  initiatorId        String
+  initiator          User             @relation("SentConnections", fields: [initiatorId], references: [id])
+  recipientId        String
+  recipient          User             @relation("ReceivedConnections", fields: [recipientId], references: [id])
+  compatibilityScore Float?
+  notes              String?
+
+  @@unique([initiatorId, recipientId])
+}
+
+enum ConnectionStatus {
+  Pending
+  Accepted
+  Rejected
+}
+
+model Location {
+  id      String @id @default(uuid())
+  userId  String @unique
+  user    User   @relation("location", fields: [userId], references: [id], onDelete: Cascade)
+  city    String
+  area    String
+  country String @default("India")
+}
+
+enum SleepSchedule {
+  EarlyBird
+  NightOwl
+  Flexible
+}
+
+enum Gender {
+  Male
+  Female
+  Others
+}
+
+enum Role {
+  EndUser
+  Admin
+}
+
+enum Cleanliness {
+  Messy
+  Average
+  CleanFreak
+}

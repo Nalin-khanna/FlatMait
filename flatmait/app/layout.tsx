@@ -1,14 +1,11 @@
 import { type Metadata } from 'next'
 import {
   ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
   UserButton,
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,22 +18,25 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'FlatMait',
-  description: 'Room Mate finding app',
+  title: 'Flaties',
+  description: 'Roommate finding app',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
+
+  
+
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <header className="flex justify-end items-center p-4 gap-4 h-16 bg-gradient-to-r from-violet-200 to-pink-200">
-          <UserButton />
-          </header>
+          <div className="absolute top-4 right-4 z-50">
+            <UserButton />
+          </div>
           {children}
         </body>
       </html>
