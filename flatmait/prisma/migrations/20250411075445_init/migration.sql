@@ -33,7 +33,6 @@ CREATE TABLE "User" (
     "hobbies" TEXT,
     "sleepSchedule" "SleepSchedule" NOT NULL,
     "profileCompleted" BOOLEAN NOT NULL,
-
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 

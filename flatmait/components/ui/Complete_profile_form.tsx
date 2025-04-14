@@ -3,10 +3,30 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@clerk/nextjs';
+import { number } from 'zod';
 
 type Gender = 'Male' | 'Female' | 'Others';
 type Cleanliness = 'Messy' | 'Average' | 'CleanFreak';
 type SleepSchedule = 'EarlyBird' | 'NightOwl' | 'Flexible';
+
+interface FormData {
+  name: string;
+  age: number;
+  gender: Gender;
+  minBudget: number;
+  maxBudget: number;
+  preferredGender: Gender;
+  isSmoker: boolean;
+  bio: string;
+  socialLevel: number;
+  petsAllowed: boolean;
+  cleanliness: Cleanliness;
+  hobbies: string;
+  sleepSchedule: SleepSchedule;
+  city: string;
+  area: string;
+}
+
 
 export default function Complete_profile_form() {
   const router = useRouter();
@@ -32,18 +52,28 @@ export default function Complete_profile_form() {
     sleepSchedule: 'Flexible' as SleepSchedule,
     city: '',
     area: '',
-    id : userId
   });
 
-    const handleChange = (e : any) => {
-        e.preventDefault();
-        const { name, value } = e.target;
-        setFormData(prev => ({
-          ...prev,
-          [name]: value
-        }));
-        console.log("this is changed" , name , "to ", value)
-      };
+  const handleChange = (e: any) => {
+    
+    const { name, value } = e.target;
+    
+    let newValue: any = value;
+  
+    // Convert to number for numeric fields
+    if (['age', 'minBudget', 'maxBudget', 'socialLevel'].includes(name)) {
+      newValue = parseInt(value, 10);
+    }
+  
+    setFormData((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+  
+    console.log('this is changed', name, 'to', newValue);
+    console.log(e.target)
+  };
+  
   // Define all onboarding steps
   const steps = [
     {
@@ -386,12 +416,36 @@ export default function Complete_profile_form() {
           return false;
         }
         break;
+      
+      case 'age':
+        if(!formData.age){
+          setError("Please enter your age")
+          return false;
+        }
+        break;  
       case 'budget':
         if (formData.minBudget <= 0 || formData.maxBudget <= 0) {
           setError('Please enter valid budget values');
           return false;
         }
+        else if (!(formData.minBudget&&formData.maxBudget)){
+          setError('Please enter valid budget values');
+          return false;
+        }
+        else if (formData.minBudget < 2000){
+          setError('Your minimum budget should be 2000');
+          return false;
+        }
+        else if (formData.maxBudget < 3000){
+          setError('Your max budget should at least be 3000');
+          return false;
+        }
+        else if (formData.maxBudget < formData.minBudget){
+          setError('Max budget should be more than min budget');
+          return false;
+        }
         break;
+      
       case 'location':
         if (!formData.city.trim() || !formData.area.trim()) {
           setError('Please enter both city and area');
@@ -420,8 +474,11 @@ export default function Complete_profile_form() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(
-          formData
+        body: JSON.stringify({
+            userId,
+            ...formData
+        }
+          
         ),
       });
 

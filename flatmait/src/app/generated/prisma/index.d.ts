@@ -5180,7 +5180,7 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -5204,7 +5204,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -5276,7 +5276,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6505,7 +6505,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutSentConnectionsInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6528,7 +6528,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutSentConnectionsInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6556,7 +6556,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutReceivedConnectionsInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6579,7 +6579,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutReceivedConnectionsInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6721,7 +6721,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutLocationInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string
@@ -6744,7 +6744,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutLocationInput = {
-    id?: string
+    id: string
     role: $Enums.Role
     createdAt?: Date | string
     name: string

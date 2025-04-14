@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(uuid())
+  id                  String        @id
   role                Role
   createdAt           DateTime      @default(now())
   name                String
@@ -34,7 +34,7 @@ model User {
   sleepSchedule       SleepSchedule
   sentConnections     Connection[]  @relation("SentConnections")
   receivedConnections Connection[]  @relation("ReceivedConnections")
-  location            Location?     @relation("location")
+  location            Location?
   profileCompleted    Boolean
 }
 
@@ -62,7 +62,7 @@ enum ConnectionStatus {
 model Location {
   id      String @id @default(uuid())
   userId  String @unique
-  user    User   @relation("location", fields: [userId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id])
   city    String
   area    String
   country String @default("India")
