@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@clerk/nextjs';
 import { number } from 'zod';
+import { useUser } from '@clerk/nextjs'
+import { completeOnboarding } from '@/app/complete-profile/_actions';
 
 type Gender = 'Male' | 'Female' | 'Others';
 type Cleanliness = 'Messy' | 'Average' | 'CleanFreak';
@@ -53,6 +55,8 @@ export default function Complete_profile_form() {
     city: '',
     area: '',
   });
+  const { user } = useUser()
+  
 
   const handleChange = (e: any) => {
     
@@ -487,6 +491,18 @@ export default function Complete_profile_form() {
         throw new Error(errorData.error || 'Failed to complete profile');
       }
 
+      
+
+
+      const res = await completeOnboarding()
+      if (res?.message) {
+      // Reloads the user's data from the Clerk API
+      await user?.reload()
+      router.push('/')
+    }
+    if (res?.error) {
+      setError(res?.error)
+    }
       // Redirect to dashboard on success
       router.push('/dashboard');
     } catch (error : any) {
