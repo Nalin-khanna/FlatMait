@@ -11,25 +11,6 @@ type Gender = 'Male' | 'Female' | 'Others';
 type Cleanliness = 'Messy' | 'Average' | 'CleanFreak';
 type SleepSchedule = 'EarlyBird' | 'NightOwl' | 'Flexible';
 
-interface FormData {
-  name: string;
-  age: number;
-  gender: Gender;
-  minBudget: number;
-  maxBudget: number;
-  preferredGender: Gender;
-  isSmoker: boolean;
-  bio: string;
-  socialLevel: number;
-  petsAllowed: boolean;
-  cleanliness: Cleanliness;
-  hobbies: string;
-  sleepSchedule: SleepSchedule;
-  city: string;
-  area: string;
-}
-
-
 export default function Complete_profile_form() {
   const router = useRouter();
   const { userId } = useAuth();

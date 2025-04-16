@@ -157,6 +157,14 @@ exports.Prisma.LocationScalarFieldEnum = {
   country: 'country'
 };
 
+exports.Prisma.MatchResultScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  matchedUserId: 'matchedUserId',
+  compatibilityScore: 'compatibilityScore',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -203,7 +211,8 @@ exports.ConnectionStatus = exports.$Enums.ConnectionStatus = {
 exports.Prisma.ModelName = {
   User: 'User',
   Connection: 'Connection',
-  Location: 'Location'
+  Location: 'Location',
+  MatchResult: 'MatchResult'
 };
 
 /**

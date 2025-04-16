@@ -15,27 +15,29 @@ datasource db {
 }
 
 model User {
-  id                  String        @id
-  role                Role
-  createdAt           DateTime      @default(now())
-  name                String
-  age                 Int
-  gender              Gender
-  minBudget           Int
-  maxBudget           Int
-  preferredGender     Gender
-  isSmoker            Boolean
-  bio                 String?
-  profilePictureUrl   String?
-  socialLevel         Int
-  petsAllowed         Boolean
-  cleanliness         Cleanliness
-  hobbies             String?
-  sleepSchedule       SleepSchedule
-  sentConnections     Connection[]  @relation("SentConnections")
-  receivedConnections Connection[]  @relation("ReceivedConnections")
-  location            Location?
-  profileCompleted    Boolean
+  id                   String        @id
+  role                 Role
+  createdAt            DateTime      @default(now())
+  name                 String
+  age                  Int
+  gender               Gender
+  minBudget            Int
+  maxBudget            Int
+  preferredGender      Gender
+  isSmoker             Boolean
+  bio                  String?
+  profilePictureUrl    String?
+  socialLevel          Int
+  petsAllowed          Boolean
+  cleanliness          Cleanliness
+  hobbies              String?
+  sleepSchedule        SleepSchedule
+  sentConnections      Connection[]  @relation("SentConnections")
+  receivedConnections  Connection[]  @relation("ReceivedConnections")
+  location             Location?
+  profileCompleted     Boolean
+  matchesAsMatchedUser MatchResult[] @relation("matchedWithUser")
+  matchesAsUser        MatchResult[] @relation("userMatches")
 }
 
 model Connection {
@@ -89,4 +91,15 @@ enum Cleanliness {
   Messy
   Average
   CleanFreak
+}
+
+model MatchResult {
+  id                 String   @id @default(cuid())
+  userId             String // ID of user jisko match chahiye
+  matchedUserId      String // ID of the new match found User
+  compatibilityScore Float
+  createdAt          DateTime @default(now())
+
+  user        User @relation(name: "userMatches", fields: [userId], references: [id], onDelete: Cascade)
+  matchedUser User @relation(name: "matchedWithUser", fields: [matchedUserId], references: [id], onDelete: Cascade)
 }

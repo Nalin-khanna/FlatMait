@@ -1,6 +1,9 @@
 'use server'
 
 import { auth, clerkClient } from '@clerk/nextjs/server'
+import { POST } from '../api/webhooks/route'
+import { json } from 'stream/consumers'
+import { stringify } from 'querystring'
 
 export const completeOnboarding = async () => {
   const { userId } = await auth()
@@ -16,6 +19,11 @@ export const completeOnboarding = async () => {
       publicMetadata: {
         onboardingComplete: true
       },
+    })
+    const matchesresponse = await fetch('/api/matches/generate',{
+        method: 'POST',
+        body : JSON.stringify({userId})
+
     })
     return { message: res.publicMetadata }
   } catch (err) {

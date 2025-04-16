@@ -36,6 +36,9 @@ model User {
   receivedConnections Connection[] @relation("ReceivedConnections")
   location Location?
   profileCompleted Boolean
+  matchesAsMatchedUser MatchResult[] @relation("matchedWithUser")
+  matchesAsUser      MatchResult[] @relation("userMatches")
+
 }
 
 model Connection {
@@ -91,3 +94,15 @@ enum Cleanliness{
 }
 
 
+model MatchResult {
+  id String @id @default(cuid())
+  userId String                 // ID of user jisko match chahiye
+  matchedUserId String         // ID of the new match found User
+  compatibilityScore Float
+  createdAt         DateTime    @default(now())
+
+  user User @relation(name: "userMatches", fields: [userId], references: [id], onDelete: Cascade)
+  matchedUser       User        @relation(name: "matchedWithUser", fields: [matchedUserId], references: [id], onDelete: Cascade)
+
+
+}

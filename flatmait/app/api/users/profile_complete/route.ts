@@ -5,61 +5,61 @@ import { prismaClient } from "@/lib/db";
 type Role = "EndUser" | "Admin";
 
 export async function POST(req: NextRequest) {
-  const res = await req.json();
+  const formdata = await req.json();
 
   try {
     const user = await prismaClient.user.upsert({
-      where: { id: res.userId },
+      where: { id: formdata.userId },
       update: {
-        name: res.name,
-        age: res.age,
-        gender: res.gender,
-        minBudget: res.minBudget,
-        maxBudget: res.maxBudget,
-        preferredGender: res.preferredGender,
-        isSmoker: res.isSmoker,
-        bio: res.bio,
-        socialLevel: res.socialLevel,
-        petsAllowed: res.petsAllowed,
-        cleanliness: res.cleanliness,
-        hobbies: res.hobbies,
-        sleepSchedule: res.sleepSchedule,
+        name: formdata.name,
+        age: formdata.age,
+        gender: formdata.gender,
+        minBudget: formdata.minBudget,
+        maxBudget: formdata.maxBudget,
+        preferredGender: formdata.preferredGender,
+        isSmoker: formdata.isSmoker,
+        bio: formdata.bio,
+        socialLevel: formdata.socialLevel,
+        petsAllowed: formdata.petsAllowed,
+        cleanliness: formdata.cleanliness,
+        hobbies: formdata.hobbies,
+        sleepSchedule: formdata.sleepSchedule,
         profileCompleted: true,
       },
       create: {
-        id: res.userId,
+        id: formdata.userId,
         role: "EndUser",
-        name: res.name,
-        age: res.age,
-        gender: res.gender,
-        minBudget: res.minBudget,
-        maxBudget: res.maxBudget,
-        preferredGender: res.preferredGender,
-        isSmoker: res.isSmoker,
-        bio: res.bio,
-        socialLevel: res.socialLevel,
-        petsAllowed: res.petsAllowed,
-        cleanliness: res.cleanliness,
-        hobbies: res.hobbies,
-        sleepSchedule: res.sleepSchedule,
+        name: formdata.name,
+        age: formdata.age,
+        gender: formdata.gender,
+        minBudget: formdata.minBudget,
+        maxBudget: formdata.maxBudget,
+        preferredGender: formdata.preferredGender,
+        isSmoker: formdata.isSmoker,
+        bio: formdata.bio,
+        socialLevel: formdata.socialLevel,
+        petsAllowed: formdata.petsAllowed,
+        cleanliness: formdata.cleanliness,
+        hobbies: formdata.hobbies,
+        sleepSchedule: formdata.sleepSchedule,
         profileCompleted: true,
       },
     });
 
     await prismaClient.location.upsert({
       where:{
-        userId : res.userId,
+        userId : formdata.userId,
       }, 
       update : {
-        city: res.city , 
-        area : res.area , 
+        city: formdata.city , 
+        area : formdata.area , 
       },
       create : {
-        city: res.city , 
-        area : res.area , 
+        city: formdata.city , 
+        area : formdata.area , 
         user: {
           connect: {
-            id: res.userId,
+            id: formdata.userId,
           },
         }
       }
