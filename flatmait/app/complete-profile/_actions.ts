@@ -20,11 +20,14 @@ export const completeOnboarding = async () => {
         onboardingComplete: true
       },
     })
-    const matchesresponse = await fetch('/api/matches/generate',{
+    try{const matchesresponse = await fetch('/api/matches/generate',{
         method: 'POST',
         body : JSON.stringify({userId})
 
-    })
+    })}
+    catch(err){
+        return {error : 'There was an error generating matches'}
+    }
     return { message: res.publicMetadata }
   } catch (err) {
     return { error: 'There was an error updating the user metadata.' }
