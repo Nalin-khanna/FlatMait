@@ -3,11 +3,13 @@ import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"
 import { auth } from '@clerk/nextjs/server'
 import { SignInButton, SignUpButton } from "@clerk/nextjs"
 import Link from 'next/link'
+import LandingPageSection from "@/components/ui/landingpage_section"
 export default async function Home() {
   const { userId } = await auth()
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-r from-violet-200 to-pink-200 ">
+    <div className="flex flex-col">
+       <div className="w-screen min-h-screen bg-gradient-to-r from-violet-200 to-pink-200 ">
       <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center ">
@@ -45,8 +47,13 @@ export default async function Home() {
           <p className="mt-3 px-5 max-w-xl text-center text-lg text-gray-500 dark:text-white">
             Flaties helps you connect with roommates who truly vibe with your lifestyle, habits, and budget.
           </p>
+          
         </div>
       </div>
     </div>
+    <LandingPageSection></LandingPageSection>
+    
+    </div>
+   
   )
 }

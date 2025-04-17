@@ -50,7 +50,7 @@ export  async function POST(req : NextRequest){
 
         await prismaClient.matchResult.deleteMany({
             where : {
-                id : userId
+                userId : userId
             }
         })
         for(const match of sortedMatches){
@@ -132,7 +132,7 @@ export  async function POST(req : NextRequest){
 
 
 
-        return 100;
+          return (score / totalWeight) * maxScore;
     }
 }
 function calculateBudgetOverlap(
