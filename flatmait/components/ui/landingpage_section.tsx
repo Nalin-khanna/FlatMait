@@ -1,7 +1,7 @@
-import { HoverEffect } from "@/src/components/ui/card-hover-effect";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
 export default function LandingPageSection(){
     return(
-        <div className="flex flex-col w-full bg-purple-50">
+        <div className="flex flex-col w-full bg-[#d5c8db]">
              <div className="w-full p-16 ">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold text-center mb-5">
@@ -32,18 +32,18 @@ export const projects = [
       title: "Smart Matching Algorithm ",
       description:
         "We connect you with compatible roommates based on your lifestyle, habits, and preferences.",
-      link: "",
+      link: "1",
     },
     {
       title: "Verified Profiles ",
       description:
         "Every user is authenticated for safety and trust in shared living.",
-      link: "",
+      link: "2",
     },
     {
       title: "Personalized Onboarding ",
       description:
         "Tailored profile setup ensures accurate and meaningful matches.",
-      link: "",
+      link: "3",
     },
   ];

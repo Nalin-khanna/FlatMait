@@ -100,7 +100,7 @@ model MatchResult {
   matchedUserId String         // ID of the new match found User
   compatibilityScore Float
   createdAt         DateTime    @default(now())
-
+  
   user User @relation(name: "userMatches", fields: [userId], references: [id], onDelete: Cascade)
   matchedUser       User        @relation(name: "matchedWithUser", fields: [matchedUserId], references: [id], onDelete: Cascade)
 

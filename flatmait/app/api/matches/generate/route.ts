@@ -1,11 +1,8 @@
 import { prismaClient } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import type { User } from "@/src/app/generated/prisma";
-import { match } from "assert";
-import { UserProfile } from "@clerk/nextjs";
 
-type Cleanliness = "Messy" | "Average" | "CleanFreak";
-type SleepSchedule = "EarlyBird" | "NightOwl" | "Flexible";
+
 export  async function POST(req : NextRequest){
     try{
         const {userId} = await req.json()
@@ -33,7 +30,7 @@ export  async function POST(req : NextRequest){
             throw new Error("User profile is not completed")
         }
 
-        const matches = users.map(user =>{
+        const matches = users.map((user: User) => {
             const score = calculateCompatibilityScore(currUser , user );
             return {
                 id : user.id,

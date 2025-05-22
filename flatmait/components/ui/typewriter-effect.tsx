@@ -72,7 +72,7 @@ export const TypewriterEffect = ({
   return (
     <div
       className={cn(
-        "text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center",
+        "text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-bold text-center",
         className
       )}
     >
@@ -156,12 +156,12 @@ export const TypewriterEffectSmooth = ({
         }}
       >
         <div
-          className="text-xs sm:text-base md:text-xl lg:text:3xl xl:text-5xl font-bold"
+          className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-[3.75rem] font-bold"
           style={{
             whiteSpace: "nowrap",
           }}
         >
-          {renderWords()}{" "}
+          {renderWords()} 
         </div>{" "}
       </motion.div>
       <motion.span

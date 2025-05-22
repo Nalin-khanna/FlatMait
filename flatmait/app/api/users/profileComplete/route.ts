@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
 import { prismaClient } from "@/lib/db";
 
-type Role = "EndUser" | "Admin";
 
 export async function POST(req: NextRequest) {
   const formdata = await req.json();
-
+  console.log("req recieved");
   try {
     const user = await prismaClient.user.upsert({
       where: { id: formdata.userId },
@@ -64,7 +62,7 @@ export async function POST(req: NextRequest) {
         }
       }
     });
-
+    console.log("User and location updated/created successfully");
     return NextResponse.json(user);
   } catch (error) {
     console.error("Error updating/creating user or location:", error);
