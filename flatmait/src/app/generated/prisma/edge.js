@@ -12,17 +12,14 @@ const {
   empty,
   join,
   raw,
-  skip,
   Decimal,
   Debug,
   objectEnumValues,
   makeStrictEnum,
   Extensions,
-  warnOnce,
   defineDmmfProperty,
   Public,
-  getRuntime,
-  createParam,
+
 } = require('./runtime/edge.js')
 
 
@@ -215,7 +212,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../../../prisma",
