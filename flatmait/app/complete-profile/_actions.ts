@@ -17,16 +17,16 @@ export const completeOnboarding = async () => {
         onboardingComplete: true
       },
     })
-    try{const matchesresponse = await fetch('/api/matches/generate',{
+    try{await fetch('/api/matches/generate',{
         method: 'POST',
         body : JSON.stringify({userId})
 
     })}
     catch(err){
-        return {error : 'There was an error generating matches'}
+        return {error : 'There was an error generating matches',err}
     }
     return { message: "success" ,metadata : res.publicMetadata }
   } catch (err) {
-    return { error: 'There was an error updating the user metadata.' }
+    return { error: 'There was an error updating the user metadata.', err}
   }
 }

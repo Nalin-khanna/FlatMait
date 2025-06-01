@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 import {
   ClerkProvider,
-  UserButton,
+ 
 } from '@clerk/nextjs'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -34,7 +34,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <div className="absolute top-0 left-0 w-full z-50 h-15">
+          <div className="absolute top-0 left-0 w-full z-50 h-10">
             <Navbar />
           </div>
           <div className="absolute top-4 right-4 z-50">

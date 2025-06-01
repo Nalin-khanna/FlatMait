@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { FormEvent } from "react";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { completeOnboarding } from "@/app/complete-profile/_actions";
@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import { BudgetForm } from "../formComponents/budgetForm";
 import { UserForm } from "../formComponents/userForm";
 import { PreferredGenderForm } from "../formComponents/prefferedGender";
+import {PreferenceForm }from "../formComponents/PreferenceForm";
+import { LocationForm } from "../formComponents/LocationForm";
+import { PictureForm } from "../formComponents/PictureForm";
 type FormData = {
   name: string;
   age: number;
@@ -51,6 +54,15 @@ export default function Complete_profile_form() {
     role: "",
   });
 
+  function onNext(e : FormEvent<HTMLFormElement>){
+    e.preventDefault();
+    if(isLastStep){
+      handleSubmit(e);
+      return;
+    }
+    next();
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -77,29 +89,25 @@ export default function Complete_profile_form() {
     }
   };
 
-  const {steps , step , currentStepIndex ,isFirstStep , isLastStep , back , next} = useMultistepForm([<UserForm/>, <BudgetForm/> , <PreferredGenderForm/>]);
+  const {steps , step , currentStepIndex ,isFirstStep , isLastStep , back , next} = useMultistepForm([
+    <UserForm key="user" {...formData} updateFormData={updateFormData} />,
+    <BudgetForm key="budget" {...formData} updateFormData={updateFormData} />,
+    <PreferredGenderForm key="gender" {...formData} updateFormData={updateFormData} />,
+    <PreferenceForm key="prefs" {...formData} updateFormData={updateFormData} />,
+    <LocationForm key="location" {...formData} updateFormData={updateFormData} />,
+    <PictureForm key="picture" {...formData} updateFormData={updateFormData} />,
+]);
+
+  function updateFormData(data: Partial<FormData>) {
+    setFormData((prevData) => ({ ...prevData, ...data }));
+    console.log(formData)
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-purple-200 flex items-center justify-center p-4">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-      </div>
-      
-      <div className="relative w-full max-w-2xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            Complete Your <span className="text-purple-600">Flaties</span> Profile
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Help us find your perfect roommate match
-          </p>
-        </div>
-
+    <div className="flex items-center justify-center p-2">    
+      <div className="relative w-full max-w-2xl">              
         {/* Form Container */}
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
+        <div className="bg-white/50 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
           {/* Progress Bar */}
           <div className="bg-gradient-to-r from-violet-200 to-pink-200 h-2">
             <div 
@@ -115,25 +123,20 @@ export default function Complete_profile_form() {
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-semibold">
                   {currentStepIndex + 1}
                 </div>
-                <span className="font-medium">
-                  Step {currentStepIndex + 1} of {steps.length}
-                </span>
-              </div>
-              <div className="text-sm opacity-90">
-                {currentStepIndex === 0 ? "Personal Information" : "Budget & Preferences"}
+                
               </div>
             </div>
           </div>
 
           {/* Form Content */}
           <div className="p-8">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={onNext}>
               <div className="mb-8">
                 {step}
               </div>
               
               {/* Navigation Buttons */}
-              <div className="flex justify-between items-center pt-6 border-t border-gray-200">
+              <div className="flex justify-between items-center pt-6 ">
                 {isFirstStep ? (
                   <div></div>
                 ) : (
@@ -147,9 +150,8 @@ export default function Complete_profile_form() {
                 )}
                 
                 <button 
-                  className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-300 shadow-lg"
-                  type="button" 
-                  onClick={next}
+                  className="px-6 py-3 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300 "
+                  type="submit"
                 >
                   {isLastStep ? 'Complete Profile ✨' : 'Next Step →'}
                 </button>

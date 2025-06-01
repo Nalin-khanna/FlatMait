@@ -10,7 +10,19 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  {
+    ignores: ["src/app/generated/prisma/**",  ".next/**" , "node_modules/**"],
+
+  },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      // Example overrides:
+      "@next/next/no-img-element": "off", // use native <img> if needed
+      "react/react-in-jsx-scope": "off", // not needed with React 17+
+      "no-console": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;
