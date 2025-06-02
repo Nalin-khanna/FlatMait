@@ -1,6 +1,6 @@
 "use client"
 import { ChangeEvent } from "react";
-import Image from "next/image";
+
 
 type pictureData = {
     profilePictureUrl: string;
@@ -28,7 +28,7 @@ export function PictureForm({profilePictureUrl , updateFormData} : PictureFormPr
             });
       
             const data = await res.json();
-      
+            console.log(data)
             if (data.url) {
               updateFormData({ profilePictureUrl: data.url });
             } else {
@@ -47,7 +47,7 @@ export function PictureForm({profilePictureUrl , updateFormData} : PictureFormPr
             <p className="mb-3 text-zinc-500">Your picture will be displayed on your profile. </p>
             <input autoFocus  type="file" onChange={handleFileChange} />
         {profilePictureUrl && (
-          <Image src={profilePictureUrl} alt="Preview" 
+          <img src={profilePictureUrl} alt="Preview" 
           width={128}
           height={128}
           className="mt-4 object-cover rounded-full" />

@@ -78,12 +78,13 @@ export  async function POST(req : NextRequest){
           let totalWeight = 0;
 
           const weights = {
-            budget: 25,          // Budget compatibility is crucial
-            cleanliness: 20,     // Cleanliness habits alignment
+            budget: 20,          // Budget compatibility is crucial
+            cleanliness: 15,     // Cleanliness habits alignment
             socialLevel: 15,     // Social compatibility
-            sleepSchedule: 20,   // Sleep schedule compatibility
-            smoking: 20,         // Smoking preference matching
-            pets: 10              // Pet policy agreement
+            sleepSchedule: 15,   // Sleep schedule compatibility
+            smoking: 15,         // Smoking preference matching
+            pets: 10    ,
+            baseCompatibility: 10          // Pet policy agreement
           };
 
           for (const weight of Object.values(weights)) {
@@ -99,7 +100,17 @@ export  async function POST(req : NextRequest){
               user1.minBudget, user1.maxBudget,
               user2.minBudget, user2.maxBudget
             );
-            score += weights.budget * overlapScore;
+            score += weights.budget * Math.max(overlapScore, 0.4);
+          }else {
+           
+            const avgBudget1 = (user1.minBudget + user1.maxBudget) / 2;
+            const avgBudget2 = (user2.minBudget + user2.maxBudget) / 2;
+            const budgetDifference = Math.abs(avgBudget1 - avgBudget2);
+            const maxBudget = Math.max(avgBudget1, avgBudget2);
+            
+            if (budgetDifference / maxBudget < 0.5) { // Within 50% of each other
+              score += weights.budget * 0.3; // Give 30% score
+            }
           }
         
           const cleanlinessScore = 1 - (Math.abs(getCleanlinessValue(user1.cleanliness) - getCleanlinessValue(user2.cleanliness)) / 3);
@@ -107,13 +118,15 @@ export  async function POST(req : NextRequest){
 
 
           const socialDifference = Math.abs(user1.socialLevel - user2.socialLevel);
-          // Convert to a 0-1 score (0 = max difference of 10, 1 = no difference)
+          
           const socialScore = 1 - (socialDifference / 10);
           score += weights.socialLevel * socialScore;
 
           
           if (user1.petsAllowed === user2.petsAllowed) {
             score += weights.pets;
+          } else {
+            score += weights.pets * 0.5; // Give 50% score for mismatch
           }
 
           if (user1.sleepSchedule === user2.sleepSchedule) {
@@ -123,11 +136,7 @@ export  async function POST(req : NextRequest){
             const sleepCompatibility = getSleepScheduleCompatibility(user1.sleepSchedule, user2.sleepSchedule);
             score += weights.sleepSchedule * sleepCompatibility;
           }
-        
-          
-
-
-
+      
 
           return (score / totalWeight) * maxScore;
     }
@@ -158,11 +167,11 @@ function calculateBudgetOverlap(
       case 'CleanFreak':
         return 5;
       case 'Average':
-        return 4;
-      case 'Messy':
         return 3;
+      case 'Messy':
+        return 1;
       default:
-        return 4; // Default to average
+        return 3; // Default to average
     }
   } 
 
@@ -171,16 +180,16 @@ function calculateBudgetOverlap(
     const compatibilityMatrix: Record<SleepSchedule, Record<SleepSchedule, number>> = {
       'EarlyBird': {
         'EarlyBird': 1.0,
-        'Flexible': 0.7,
-        'NightOwl': 0.3
+        'Flexible': 0.8,
+        'NightOwl': 0.5
       },
       'Flexible': {
-        'EarlyBird': 0.7,
+        'EarlyBird': 0.8,
         'Flexible': 1.0,
-        'NightOwl': 0.7
+        'NightOwl': 0.8
       },
       'NightOwl': {
-        'EarlyBird': 0.3,
+        'EarlyBird': 0.5,
         'Flexible': 0.7,
         'NightOwl': 1.0
       }

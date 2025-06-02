@@ -21,7 +21,7 @@ export default function LandingPageSection(){
         </h2>
     </div>
     <div className="max-w-7xl mx-auto ">
-      <HoverEffect items={projects} />
+      <HoverEffect items={works} />
     </div>
 </div>
        
@@ -47,3 +47,24 @@ export const projects = [
       link: "3",
     },
   ];
+  const works = [
+    {
+      title: "Sign Up ",
+      description:
+        "We connect you with compatible roommates based on your lifestyle, habits, and preferences.",
+      link: "1",
+    },
+    {
+      title: "Tell us about yourself ",
+      description:
+        "Fill up the forms , Your data is secure with us",
+      link: "2",
+    },
+    {
+      title: " Contact your matches  ",
+      description:
+        "Tailored profile setup ensures accurate and meaningful matches.",
+      link: "3",
+    },
+  ];
+  
