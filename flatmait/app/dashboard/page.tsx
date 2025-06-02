@@ -47,7 +47,7 @@ export default function Dashboard(){
             setMatches(data);
             console.log(matches);
            }catch(e){
-
+            console.error("error" , e)
            } 
         }
         fetchdata();

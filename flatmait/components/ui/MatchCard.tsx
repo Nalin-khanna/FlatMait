@@ -1,4 +1,4 @@
-import { Heart, MapPin, User } from "lucide-react";
+import { MapPin, User } from "lucide-react";
 import Image from "next/image";
 
 type Gender = "Male" | "Female" | "Other";
