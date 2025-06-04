@@ -1,5 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 
 function Navbar() {
   return (
@@ -19,18 +20,18 @@ function Navbar() {
           
           {/* Navigation Links - Hidden on mobile, visible on large screens */}
           <nav className="hidden lg:flex lg:items-center lg:space-x-8">
-            <a href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            <Link href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               Home
-            </a>
-            <a href="/dashboard" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            </Link>
+            <Link href="/dashboard" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               Find Roommates
-            </a>
-            <a href="/agreement" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            </Link>
+            <Link href="/agreement" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               Generate Agreement
-            </a>
-            <a href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            </Link>
+            <Link href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               About
-            </a>
+            </Link>
           </nav>
           
           {/* User Button */}
