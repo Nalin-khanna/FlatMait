@@ -1,5 +1,5 @@
 "use client";
-import React, { useState , useRef} from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -360,7 +360,7 @@ export default function RentAgreementForm() {
             </ul>
           </div>
 
-          <p>Collectively referred to as "the Parties."</p>
+          <p>Collectively referred to as &quot;the Parties.&quot;</p>
 
            {/* Clauses */}
            <div className="space-y-4">
@@ -421,7 +421,7 @@ export default function RentAgreementForm() {
               <h3 className="font-bold text-base mb-2">7. NOTICE PERIOD</h3>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Either Party may terminate this Agreement by providing a minimum of <strong>{formData.noticePeriod}</strong> written notice.</li>
-                <li>In case of early termination without notice, the party at fault shall be liable to pay one month's rent as compensation.</li>
+                <li>In case of early termination without notice, the party at fault shall be liable to pay one month&apos;s rent as compensation.</li>
               </ul>
             </div>
 

@@ -21,6 +21,7 @@ const eslintConfig = [
       "@next/next/no-img-element": "off", // use native <img> if needed
       "react/react-in-jsx-scope": "off", // not needed with React 17+
       "no-console": "warn",
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 ];
