@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server'
 import { SignInButton, SignUpButton } from "@clerk/nextjs"
 import Link from 'next/link'
 import LandingPageSection from "@/components/ui/landingpage_section"
+import AgreementSection from "@/components/ui/AgreeementSection"
 
 export default async function Home() {
   const { userId } = await auth()
@@ -55,7 +56,14 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      <div>
+      <AgreementSection></AgreementSection>
+      </div>
+      <div>
       <LandingPageSection/>
+      </div>
+      
+      
     </div>
   )
 }
