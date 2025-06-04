@@ -19,16 +19,16 @@ function Navbar() {
           
           {/* Navigation Links - Hidden on mobile, visible on large screens */}
           <nav className="hidden lg:flex lg:items-center lg:space-x-8">
-            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            <a href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               Home
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            <a href="/dashboard" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               Find Roommates
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
-              Post Listing
+            <a href="/agreement" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+              Generate Agreement
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
+            <a href="/" className="text-gray-600 hover:text-gray-800 transition-colors duration-200 font-medium">
               About
             </a>
           </nav>
